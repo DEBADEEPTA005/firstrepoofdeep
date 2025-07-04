@@ -1,62 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Currency Converter</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INR Currency Converter</title>
+
+  <!-- Tailwind CDN for styling (optional if using your own CSS) -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Number to Words & Words to Numbers Libraries -->
+  <script src="libs/num-words.min.js"></script>
+  <script src="libs/words-to-numbers.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Currency Converter</h1>
-        <form id="converter-form" autocomplete="off">
-            <label for="amount-input">Amount (number or words):</label>
-            <input type="text" id="amount-input" placeholder="e.g. 100 or one hundred" required>
-            
-            <div class="currency-selectors">
-                <div>
-                    <label for="from-currency">From:</label>
-                    <select id="from-currency">
-                        <option value="INR">Indian Rupee (INR)</option>
-                        <option value="USD">US Dollar (USD)</option>
-                        <option value="EUR">Euro (EUR)</option>
-                        <option value="CNY">Chinese Yuan (CNY)</option>
-                        <option value="GBP">Pound Sterling (GBP)</option>
-                        <option value="CHF">Swiss Franc (CHF)</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="to-currency">To:</label>
-                    <select id="to-currency">
-                        <option value="INR">Indian Rupee (INR)</option>
-                        <option value="USD">US Dollar (USD)</option>
-                        <option value="EUR">Euro (EUR)</option>
-                        <option value="CNY">Chinese Yuan (CNY)</option>
-                        <option value="GBP">Pound Sterling (GBP)</option>
-                        <option value="CHF">Swiss Franc (CHF)</option>
-                    </select>
-                </div>
-            </div>
-            
-            <button type="submit">Convert</button>
-        </form>
-        
-        <div id="results">
-            <h2>Converted Amount</h2>
-            <div>
-                <strong>Number:</strong>
-                <span id="result-number">—</span>
-            </div>
-            <div>
-                <strong>Words:</strong>
-                <span id="result-words">—</span>
-            </div>
-        </div>
-        
-        <div id="rate-info"></div>
-        <div id="error-message"></div>
+  <!-- 🔵 Top Currency Bar -->
+  <header class="top-bar">
+    <div class="currency-info">
+      <span>🇮🇳 INR: ₹1.00 (Base)</span>
+      <span>💵 USD: $0.012 (+0.32%)</span>
+      <span>💶 EUR: €0.011 (-0.08%)</span>
+      <span>💷 GBP: £0.0099 (+0.12%)</span>
+      <span>💴 JPY: ¥1.69 (+0.45%)</span>
     </div>
+  </header>
 
-    <script src="script.js"></script>
+  <!-- 💱 Conversion Panel -->
+  <main>
+    <h1>INR to Currency Converter</h1>
+    <div class="converter-box">
+      <form id="converter-form">
+        <input type="text" id="inr-amount" placeholder="Enter amount in INR (e.g., '100 trillion' or '100000000000000')" />
+        <select id="currency-select">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+          <option value="JPY">JPY</option>
+          <option value="INR">INR</option>
+        </select>
+        <button type="submit">Convert</button>
+      </form>
+      <div id="result"></div>
+    </div>
+  </main>
+
+  <!-- 🔷 Background -->
+  <div class="background-chart"></div>
+
+  <!-- Script Logic -->
+  <script src="script.js"></script>
 </body>
 </html>
