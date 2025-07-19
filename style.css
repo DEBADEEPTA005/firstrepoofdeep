@@ -369,7 +369,7 @@ button::before {
   justify-content: center;
 }
 /* 📱 Responsive: Stack layout on mobile */
-@media (max-width: 768px) {
+@media (max-width: 386px) {
   .main-grid {
     padding-left: 0 !important;
     grid-template-columns: 1fr;
