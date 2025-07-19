@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,80 +8,136 @@
 
   <link rel="stylesheet" href="style.css" />
 
-  </head>
-<body>
-<header class="top-bar">
-  <div class="top-bar-content">
-    <select id="base-currency-selector">
-      <option value="INR">🇮🇳</option>
-      <option value="USD">🇺🇸</option>
-      <option value="GBP">🇬🇧</option>
-      <option value="CNY">🇨🇭</option>
-      <option value="CHF">🇨🇭</option>
-      <option value="JPY">🇯🇵</option>
-    </select>
+</head>
 
-    <div class="currency-info" id="currency-bar">
+<body>
+  <header class="top-bar">
+    <div class="top-bar-content">
+      <select id="base-currency-selector">
+        <option value="INR">🇮🇳</option>
+        <option value="USD">🇺🇸</option>
+        <option value="GBP">🇬🇧</option>
+        <option value="CNY">🇨🇭</option>
+        <option value="CHF">🇨🇭</option>
+        <option value="JPY">🇯🇵</option>
+      </select>
+
+      <div class="currency-info" id="currency-bar">
       </div>
-  </div>
-</header>
+    </div>
+  </header>
 
 
 
   <main class="main-grid">
-  <aside class="sidebar">
-    <nav>
-      <ul>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Conversion History</a></li>
-      </ul>
-    </nav>
-  </aside>
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle menu">
+      ≡
+    </button>
+    
+    <section class="converter-panel">
+      <h1>Currency Converter</h1>
+      <div class="converter-box">
+        <form id="converter-form">
+          <input type="number" id="amount-input" autocomplete="off" autofocus
+            placeholder="Enter amount (e.g., '10000')" />
+          <select id="from-currency">
+            <option value="INR">INR</option>
+          </select>
+          <select id="to-currency">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+            <option value="JPY">JPY</option>
+          </select>
+          <button type="submit">Convert</button>
+        </form>
 
-  <section class="converter-panel">
-    <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Show menu">➡️</button>
-    <h1>Currency Converter</h1>
-    <div class="converter-box">
-      <form id="converter-form">
-        <input type="text" id="amount-input" placeholder="Enter amount of currency (e.g., '100 trillion' or '100000000000000')" />
-        <select id="from-currency">
-          <option value="INR">INR</option>
-        </select>
-        <select id="to-currency">
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-          <option value="GBP">GBP</option>
-          <option value="JPY">JPY</option>
-        </select>
-        <button type="submit">Convert</button>
-      </form>
-
-      <div id="error-message" class="error-text"></div>
-      <div id="rate-info" class="rate-info"></div>
-      <div class="output">
-        <h2>Converted Amount</h2>
-        <p><strong>Number:</strong> <span id="result-number">—</span></p>
-        <p><strong>Words:</strong> <span id="result-words" class="converted-amount-words">—</span></p>
+        <div id="error-message" class="error-text"></div>
+        <div id="rate-info" class="rate-info"></div>
+        <div class="output">
+          <h2>Converted Amount</h2>
+          <p><strong>Number:</strong> <span id="result-number">—</span></p>
+          <p><strong>Words:</strong> <span id="result-words" class="converted-amount-words">—</span></p>
+        </div>
       </div>
-    </div>
-  </section>
-</main>
+    </section>
+
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h3>Menu</h3>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#converter-form">Currency Converter</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Conversion History</a></li>
+        </ul>
+      </nav>
+    </aside>
+  </main>
+  <div id="about" style="margin-top: 100px;">
+    <h1>
+      ABOUT
+    </h1>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt quisquam totam voluptas, nam sapiente eveniet perferendis natus facilis provident necessitatibus laboriosam enim iusto reprehenderit pariatur velit adipisci deserunt? Impedit suscipit debitis alias, corrupti perspiciatis soluta deserunt, animi asperiores eligendi ullam sequi aut tempore quo earum mollitia expedita deleniti porro. Quod minus eius necessitatibus modi, a laboriosam itaque? Doloribus commodi officia veniam consequatur explicabo quod exercitationem labore, eius odio ducimus consequuntur eaque libero voluptas eveniet officiis delectus rem sapiente cupiditate facere eligendi nulla? Laboriosam esse at vel quidem laborum sunt ut, pariatur nesciunt quasi error velit in animi officiis odit voluptate, exercitationem deserunt commodi itaque maxime similique repudiandae beatae. Neque ipsum at earum voluptate optio, ducimus vero dolore ipsam cupiditate deserunt? Quas, itaque maiores vel praesentium consequuntur, consequatur, numquam repellat sapiente expedita nemo dolorum. Placeat, natus in. Ex ratione eum debitis mollitia at facilis! Quibusdam minima possimus dolore nesciunt, nobis veritatis distinctio? Quo, repellat eius molestiae ea ipsum deserunt voluptatum perferendis sint cum recusandae enim voluptate nam veritatis ullam veniam voluptas, accusamus vitae. Voluptates asperiores quidem autem? Veniam, tempore. Pariatur at voluptatum officia praesentium, non eius sapiente laudantium explicabo totam voluptatem vitae sunt reiciendis nobis rerum tempora beatae commodi laboriosam. Illum, harum ullam dolor nihil reprehenderit, in maxime voluptates aspernatur eligendi accusamus voluptatem deserunt saepe iste vel ut corporis libero tempore numquam? Tenetur nemo perspiciatis cum! Ducimus blanditiis commodi est sint autem nam omnis fugit unde tenetur, dolor explicabo eligendi eius id? Non quidem nobis sapiente aspernatur eum odit laborum quibusdam nulla laboriosam expedita rem libero numquam sed sunt velit assumenda, doloribus, beatae ad tempore autem aut impedit, dolor doloremque illum. Amet, earum tempora rerum est aspernatur alias sint minima quam nesciunt fugiat quaerat minus optio. Reiciendis cum ex optio odit quisquam fuga, laudantium, maxime fugit delectus ullam corporis ipsum nobis, corrupti repellendus! Vero aut consectetur vel sequi inventore. Molestiae voluptate provident eius optio consequatur dolorum adipisci, iste, commodi officia voluptates reprehenderit. Fuga quibusdam, repellat velit voluptatum nesciunt nam delectus fugit assumenda expedita veritatis molestiae ipsam saepe provident distinctio incidunt quod iure? Eveniet reprehenderit quae molestias sit earum illum! Tempora, beatae! Magni, voluptatum? Quas iste aspernatur esse dolor, doloremque necessitatibus. Hic voluptas mollitia ut optio placeat labore nemo dolorum unde laudantium, incidunt modi tempora perspiciatis minima quos, inventore culpa ratione dolorem quaerat amet a et velit, totam molestiae ea. Ducimus quam illo magni aliquam dignissimos facere excepturi repellat facilis ex expedita, reprehenderit quos cupiditate fugiat ullam aperiam eum veniam maxime harum nesciunt vero, autem officiis. Est alias non hic esse consequuntur fugiat labore reiciendis nulla maxime laboriosam inventore ad possimus soluta reprehenderit assumenda, corporis cumque voluptate enim, deleniti obcaecati. Aut provident velit in quod possimus tempora maxime quos sed pariatur doloremque praesentium, quibusdam assumenda inventore nisi porro. Quam, corporis aspernatur ullam earum itaque quibusdam voluptatem perferendis modi illum, dignissimos doloremque praesentium saepe incidunt, possimus eveniet velit non. Quasi ea qui placeat ipsam saepe.
+  </div>
+  <div id="conversion-history">
+    <h1>
+      CONVERSION HISTORY
+    </h1>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro assumenda qui autem sapiente? Nesciunt reiciendis sapiente esse earum eum! Saepe aliquid incidunt suscipit laboriosam dolorem perspiciatis voluptatum magnam dolores nobis! Officiis quaerat consectetur at quas, eius assumenda molestias amet cupiditate dicta tempora quasi tenetur, delectus numquam placeat. Doloremque, eum cum? Neque quia ab repudiandae nesciunt a eum saepe eaque incidunt eos laboriosam, quisquam natus illo cum ad! Pariatur, minus eos! Asperiores, itaque nesciunt. Eos asperiores eveniet aut animi ducimus omnis maiores facere qui voluptas unde quidem temporibus culpa, dolor reiciendis ad fugiat maxime eligendi similique laborum tempore in autem nesciunt. Ex aliquam sunt ipsum eius, excepturi, maiores, magni et quidem nobis consequuntur consequatur tempora repellendus eaque iste nam! Totam doloribus quisquam officia beatae nisi aliquid voluptatibus quaerat quidem tempora molestias reiciendis fugiat odio, sequi saepe, veritatis tempore molestiae accusantium. Voluptatibus, id quia. Corporis nesciunt expedita officia omnis iste amet autem tempora.
+  </div>
 
 
   <div class="background-chart"></div>
 
   <script src="script.js"></script>
   <script>
-  const sidebar = document.querySelector('.sidebar');
-  const toggleBtn = document.getElementById('sidebar-toggle');
-  let sidebarOpen = false;
+    const sidebar = document.querySelector('.sidebar');
+    const toggleBtn = document.getElementById('sidebar-toggle');
+    const closeBtn = document.querySelector('.sidebar-close');
+    let sidebarOpen = false;
 
-  toggleBtn.addEventListener('click', () => {
-    sidebar.classList.toggle('open');
-    sidebarOpen = !sidebarOpen;
-    toggleBtn.innerText = sidebarOpen ? '⬅️' : '➡️';
-    toggleBtn.setAttribute('aria-label', sidebarOpen ? 'Hide menu' : 'Show menu');
-  });
-</script>
+    function openSidebar() {
+      sidebar.classList.add('open');
+      toggleBtn.textContent = '×';
+      sidebarOpen = true;
+      toggleBtn.setAttribute('aria-label', 'Close menu');
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      toggleBtn.textContent = '≡';
+      sidebarOpen = false;
+      toggleBtn.setAttribute('aria-label', 'Open menu');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      if (sidebarOpen) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    });
+
+    closeBtn.addEventListener('click', closeSidebar);
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 480 && sidebarOpen && 
+          !sidebar.contains(e.target) && 
+          !toggleBtn.contains(e.target)) {
+        closeSidebar();
+      }
+    });
+
+    // Close sidebar on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && sidebarOpen) {
+        closeSidebar();
+      }
+    });
+  </script>
 </body>
+
 </html>

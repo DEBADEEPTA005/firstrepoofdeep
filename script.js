@@ -74,9 +74,16 @@ function formatSymbol(code) {
 
 async function updateTopBar(base = "INR") {
   try {
+    console.log("Attempting to fetch currency data for base:", base);
     const url = `https://api.frankfurter.app/latest?from=${base}`;
     const res = await fetch(url);
+    
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+    
     const data = await res.json();
+    console.log("Currency data received:", data);
     const newRates = data.rates;
 
     // Clear the currency bar
@@ -119,7 +126,38 @@ async function updateTopBar(base = "INR") {
     // Reinitialize scroll functionality after updating content
     initializeScrollFunctionality();
   } catch (e) {
-    currencyBar.innerHTML = "<span>Error loading rates</span>";
+    console.error("Error loading currency rates:", e);
+    // Fallback: Display static currency data with flags
+    currencyBar.innerHTML = "";
+    displayCurrencies.forEach(code => {
+      const flag = getFlag(code);
+      const symbol = formatSymbol(code);
+      
+      if (code === base) {
+        currencyBar.innerHTML += `
+          <div class="currency-item">
+            <div class="currency-flag">${flag}</div>
+            <div class="currency-value">${code}: ${symbol}1.00</div>
+            <div class="currency-change">(Base)</div>
+          </div>`;
+      } else {
+        // Static fallback rates
+        const fallbackRates = {
+          INR: { USD: 0.012, GBP: 0.0096, CNY: 0.083, CHF: 0.011, JPY: 1.81 },
+          USD: { INR: 83.5, GBP: 0.79, CNY: 7.24, CHF: 0.88, JPY: 150.2 }
+        };
+        
+        const rate = fallbackRates[base]?.[code] || 1.0;
+        currencyBar.innerHTML += `
+          <div class="currency-item">
+            <div class="currency-flag">${flag}</div>
+            <div class="currency-value">${code}: ${symbol}${rate.toFixed(4)}</div>
+            <div class="currency-change">0.00%</div>
+          </div>`;
+      }
+    });
+    
+    initializeScrollFunctionality();
   }
 }
 
