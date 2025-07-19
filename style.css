@@ -6,26 +6,119 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
-
+/* 🔵 Stylish Top Currency Bar */
 .top-bar {
-  background: linear-gradient(to right, #2563eb, #3b82f6);
+  margin: 16px auto;
+  margin-left: auto;
+  margin-right: auto;
+  background: linear-gradient(to right, #156A93, #3a9ac9);
   color: white;
-  padding: 12px 24px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
+  padding: 16px 32px;
+  border-radius: 50px; /* Full pill shape */
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15), 0 4px 12px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(21, 106, 147, 0.45);
+  font-family: "Helvetica Neue", "Segoe UI", sans-serif;
   position: relative;
   z-index: 10;
+  width: fit-content;
+  max-width: 55vw; /* Prevent overflow on small screens */
+}
+
+.top-bar-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+#base-currency-selector {
+  appearance: none;
+  border: none;
+  border-radius: 50%;
+  padding: 12px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 54px;
+  height: 54px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* Prevent shrinking */
+  position: sticky;
+  left: 0;
+  z-index: 20;
 }
 
 .currency-info {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  font-size: 0.95rem;
-  justify-content: center;
+  gap: 32px;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  padding-right: 20px; /* Add some padding at the end */
+  cursor: grab;
+  user-select: none;
+  max-width: clamp(320px, 90vw, 1078px); /* ✅ Fix for duplicate display issue */
+  
+  /* ✅ Gradient mask to hide edges and overlap illusion */
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
 }
 
+
+.currency-info:active {
+  cursor: grabbing;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.currency-info::-webkit-scrollbar {
+  display: none;
+}
+
+.currency-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.95rem;
+  text-align: center;
+  min-width: 80px;
+  flex-shrink: 0; /* Prevent items from shrinking */
+}
+
+.currency-flag {
+  font-size: 1.75rem;
+  margin-bottom: 4px;
+}
+
+.currency-value {
+  font-weight: bold;
+}
+
+.currency-change {
+  font-size: 0.95rem;     /* slightly smaller than currency value */
+  font-weight: 600;       /* bold but not too heavy */
+  margin-top: 2px;
+}
+
+/* Optional: Add fade effect at the edges to indicate scrollability */
+.top-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 30px;
+  background: linear-gradient(to left, rgba(21, 106, 147, 0.45), transparent);
+  border-radius: 0 50px 50px 0;
+  pointer-events: none;
+}
 main {
   text-align: center;
   padding: 40px 20px;
@@ -40,50 +133,236 @@ h1 {
 }
 
 .converter-box {
-  background: white;
+  background: transparent; /* Changed to transparent as requested */
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  max-width: 400px;
+  box-shadow: none; /* Removed box shadow as requested */
+  max-width: 1200px; /* Keep this at 1200px as you found it works */
   margin: 0 auto;
   padding: 24px;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+/* --- START: Changes for larger fields, buttons, and text --- */
+
+input, select {
+  padding: 16px; /* Keep existing increased padding for height */
+  /* To make it more pill-shaped, significantly increase border-radius */
+  border-radius: 999px; /* This makes it fully rounded on the ends for a pill shape */
+  border: 1px solid #777; /* Slightly darker border for more definition */
+  font-size: 1.2rem; /* Larger font size */
+  background-color:#0A2A43; /*rgba(255, 255, 255, 0.9);  Give a subtle white background */
+  color: #F7D154; /* Darker text color */
+  width: 100%; /* Make them fill the available width of their parent */
+  box-sizing: border-box; /* Include padding and border in the element's total width */
+  /* Ensure consistent height for input and select if needed */
+  height: auto; /* Allow padding to determine height, or set a fixed height like 56px if desired */
+  -webkit-appearance: none; /* For selects, remove default browser styling for better pill shape */
+  -moz-appearance: none;    /* For selects, remove default browser styling for better pill shape */
+  appearance: none;         /* For selects, remove default browser styling for better pill shape */
+  /* Add a custom arrow for selects if you remove default appearance */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13%205.7L146.2%20202.7%2018.8%2075.1a17.6%2017.6%200%200%200-25.3%2022.6l130.4%20129.5c6.8%206.7%2017.7%206.7%2024.5%200l130.5-129.5c9.2-9.1%209.2-23.8%200-32.9z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px; /* Make space for the custom arrow */
 }
 
-input, select, button {
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-
+/* Convert Button */
 button {
-  background-color: #3b82f6;
-  color: white;
+  position: relative;
+  background: linear-gradient(to bottom, #f7b42c, #f78d00); /* Orange gradient */
+  color: #111111; /* Dark text */
   border: none;
+  padding: 18px 0; /* Changed horizontal padding to 0, as width: 100% will dictate the length. Adjust vertical padding as needed. */
+  border-radius: 999px; /* Pill shape */
+  font-size: 22px; /* Larger font size */
+  font-weight: bold;
   cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Slightly larger shadow */
+  letter-spacing: 0.8px; /* Increased letter spacing */
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  margin-top: 10px; /* Add some space above the button */
+  width: 100%; /* Make the button fill the available width of its parent */
+  box-sizing: border-box; /* Include padding and border in the element's total width */
 }
 
 button:hover {
-  background-color: #2563eb;
+  background: linear-gradient(to bottom, #e6a300, #e65c00); /* Darker on hover */
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25); /* More pronounced shadow on hover */
+}
+
+/* Adjust the ::before pseudo-element for the button's glossy effect */
+button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%; /* Make the glossy effect a bit larger */
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), transparent); /* Stronger glossy effect */
+  border-top-left-radius: 999px;
+  border-top-right-radius: 999px;
+  pointer-events: none;
 }
 
 #result {
-  margin-top: 20px;
+  margin-top: 25px; /* More space above result */
   font-weight: bold;
-  color: #1e293b;
+  color: #0e244d; /* Darker, more prominent color */
+  font-size: 1.5rem; /* Larger font size for the number result */
+  text-align: center; /* Ensure it's centered */
 }
+
+/* Styling for the words part of the result (you need to add a class="converted-amount-words" to your HTML element for this) */
+.converted-amount-words {
+  font-size: 1.1rem; /* Slightly smaller than the number, but still prominent */
+  color: #333; /* Good contrast */
+  margin-top: 8px; /* Space between number and words */
+  line-height: 1.5; /* Better readability */
+}
+
+/* --- END: Changes for larger fields, buttons, and text --- */
+
 
 .background-chart {
   background-image: url('candlestick-bg.png');
   background-size: cover;
   background-position: center;
-  opacity: 0.08;
+  opacity: 1.0;
   position: absolute;
   inset: 0;
   z-index: 0;
+}
+/* 🧩 Layout: Two-column responsive grid */
+.main-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 32px;
+  padding: 40px;
+  height: auto;
+  align-items: stretch; /* Make both columns same height */
+  border-radius: 20px;
+}
+
+/* 🔷 Enhanced Sidebar Styling with Better Shadows and Borders */
+.sidebar {
+  background: linear-gradient(to bottom, #0a2a43, #103b57);
+  color: #b0dfff;
+  padding: 40px 20px;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Enhanced multi-layered shadow system */
+  box-shadow: 
+    8px 0 40px rgba(0, 0, 0, 0.6),  /* Primary shadow - deep and wide */
+    4px 0 20px rgba(0, 0, 0, 0.4),  /* Secondary shadow for richness */
+    2px 0 10px rgba(0, 0, 0, 0.3),  /* Close shadow for definition */
+    inset -1px 0 0 rgba(255, 255, 255, 0.1), /* Inner right edge highlight */
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),  /* Inner top highlight */
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);        /* Inner bottom shadow */
+  /* Enhanced border system */
+  border: 1px solid rgba(176, 223, 255, 0.2); /* Subtle blue border matching text color */
+  border-right: 2px solid rgba(176, 223, 255, 0.3); /* Emphasized right border */
+  border-left: 1px solid rgba(176, 223, 255, 0.15); /* Softer left border */
+  /* Additional polish */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add a subtle inner glow effect */
+.sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, 
+    transparent, 
+    rgba(176, 223, 255, 0.4) 50%, 
+    transparent);
+  z-index: 1;
+}
+
+/* Enhanced sidebar navigation links with better contrast */
+.sidebar nav ul li a {
+  color: #b0dfff;
+  font-size: 1.3rem;
+  text-decoration: none;
+  font-weight: 500;
+  text-shadow: 
+    0 0 3px rgba(176, 223, 255, 0.3),
+    0 1px 2px rgba(0, 0, 0, 0.5); /* Added dark shadow for better contrast */
+  display: inline-block;
+  padding: 12px 16px; /* Added padding for better click area */
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.sidebar nav ul li a:hover {
+  color: #ffffff;
+  text-shadow: 
+    0 0 6px rgba(176, 223, 255, 0.6),
+    0 0 12px rgba(176, 223, 255, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.6);
+  background: rgba(176, 223, 255, 0.1); /* Subtle hover background */
+  box-shadow: 
+    0 2px 8px rgba(176, 223, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* 🟠 Converter Panel Styling */
+.converter-panel {
+  background: rgba(255, 255, 255, 0.03); /* Ultra-transparent for polished glass look */
+  padding: 40px;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+  box-shadow: 
+    -8px 0 40px rgba(0, 0, 0, 0.6), /* Prominent background shadow - deeper and wider */
+    -4px 0 20px rgba(0, 0, 0, 0.4), /* Mid-layer shadow for richness */
+    -2px 0 10px rgba(0, 0, 0, 0.3), /* Close shadow for definition */
+    inset 0 1px 0 rgba(255, 255, 255, 0.15), /* Brighter inner highlight */
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05); /* Bottom inner highlight */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  backdrop-filter: blur(1px); /* Minimal blur for maximum transparency */
+  -webkit-backdrop-filter: blur(1px);
+  border: 1px solid rgba(255, 255, 255, 0.15); /* More visible border for polished edge */
+  border-left: 2px solid rgba(255, 255, 255, 0.2); /* Emphasized left border */
+}
+
+/* 🌐 Converter form inside panel is vertically centered */
+.converter-form {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 500px; /* Keep this max-width here if you want the form elements to eventually stop growing within the 1200px converter-box */
+                     /* If you want the fields to fill the entire 1200px of the converter-box, set this to 100% or remove it. */
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* DECREASE THIS VALUE to reduce spacing between input fields. Adjust as needed. */
+  padding: 30px; /* Increased padding inside the form for better spacing */
+}
+
+/* 📱 Responsive: Stack layout on mobile */
+@media (max-width: 768px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none; /* Hide sidebar on mobile */
+  }
+
+  .converter-panel {
+    border-radius: 16px;
+  }
+
+  .converter-form {
+    padding: 20px 10px;
+  }
 }
