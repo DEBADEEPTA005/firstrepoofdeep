@@ -356,6 +356,23 @@ button::before {
   .main-grid {
     grid-template-columns: 1fr;
   }
+  .top-bar {
+    padding: 8px 12px;
+    max-width: 98vw;
+  }
+  .top-bar-content {
+    gap: 8px;
+  }
+  #base-currency-selector {
+    font-size: 1.1rem;
+    width: 40px;
+    height: 40px;
+    padding: 6px;
+  }
+  .currency-flag {
+    font-size: 1.1rem;
+  }
+
 
   .sidebar {
     display: none; /* Hide sidebar on mobile */
