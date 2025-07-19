@@ -51,6 +51,7 @@ body {
   position: sticky;
   left: 0;
   z-index: 20;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Twemoji Mozilla", "Arial Unicode MS", sans-serif !important;
 }
 
 .currency-info {
@@ -66,7 +67,7 @@ body {
   cursor: grab;
   user-select: none;
   max-width: clamp(320px, 90vw, 1078px); /* ✅ Fix for duplicate display issue */
-  
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Twemoji Mozilla", "Arial Unicode MS", sans-serif !important;
   /* ✅ Gradient mask to hide edges and overlap illusion */
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
@@ -95,6 +96,7 @@ body {
 .currency-flag {
   font-size: 1.75rem;
   margin-bottom: 4px;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Twemoji Mozilla", "Arial Unicode MS", sans-serif !important;
 }
 
 .currency-value {
@@ -164,6 +166,7 @@ input, select {
   background-position: right 12px center;
   background-size: 16px;
   padding-right: 40px; /* Make space for the custom arrow */
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", "Twemoji Mozilla", "Arial Unicode MS", sans-serif !important;
 }
 
 /* Convert Button */
