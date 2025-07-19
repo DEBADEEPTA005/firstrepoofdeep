@@ -23,7 +23,7 @@ body {
   position: relative;
   z-index: 10;
   width: fit-content;
-  max-width: 55vw; /* Prevent overflow on small screens */
+  max-width: 60vw; /* Prevent overflow on small screens */
 }
 
 .top-bar-content {
