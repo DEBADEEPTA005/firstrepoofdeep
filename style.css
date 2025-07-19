@@ -352,7 +352,7 @@ button::before {
 }
 
 /* 📱 Responsive: Stack layout on mobile */
-@media (max-width: 768px) {
+@media (max-width: 400px) {
   .main-grid {
     grid-template-columns: 1fr;
   }
