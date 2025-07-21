@@ -162,10 +162,11 @@ async function updateTopBar(base = "INR") {
 }
 
 baseCurrencySelector.addEventListener("change", () => {
+  lastRates={};
   updateTopBar(baseCurrencySelector.value);
 });
 
-updateTopBar(); // Initial call
+//updateTopBar(); // Initial call
 setInterval(() => updateTopBar(baseCurrencySelector.value), 60000); // Every 60 seconds
 
 // 🎯 SCROLLING FUNCTIONALITY - ADD THIS SECTION
