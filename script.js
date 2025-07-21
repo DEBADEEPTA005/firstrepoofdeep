@@ -162,7 +162,6 @@ async function updateTopBar(base = "INR") {
 }
 
 baseCurrencySelector.addEventListener("change", () => {
-  lastRates={};
   updateTopBar(baseCurrencySelector.value);
 });
 
