@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INR Currency Converter</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  </head>
+<body>
+<header class="top-bar">
+  <div class="top-bar-content">
+    <select id="base-currency-selector">
+      <option value="INR">🇮🇳</option>
+      <option value="USD">🇺🇸</option>
+      <option value="GBP">🇬🇧</option>
+      <option value="CNY">🇨🇳</option>
+      <option value="CHF">🇨🇭</option>
+      <option value="JPY">🇯🇵</option>
+    </select>
+
+    <div class="currency-info" id="currency-bar">
+      </div>
+  </div>
+</header>
+
+
+  <main class="main-grid">
+  <aside class="sidebar">
+    <nav>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Conversion History</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <section class="converter-panel">
+    <h1>Currency Converter</h1>
+    <div class="converter-box">
+      <form id="converter-form">
+        <input type="text" id="amount-input" placeholder="Enter amount of in both no. and words  (e.g., '100000' or 'one lakh')" />
+        <select id="from-currency">
+          <option value="INR">INR</option>
+        </select>
+        <select id="to-currency">
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+          <option value="JPY">JPY</option>
+        </select>
+        <button type="submit">Convert</button>
+      </form>
+
+      <div id="error-message" class="error-text"></div>
+      <div id="rate-info" class="rate-info"></div>
+      <div class="output">
+        <h2>Converted Amount</h2>
+        <p><strong>Number:</strong> <span id="result-number">—</span></p>
+        <p><strong>Words:</strong> <span id="result-words" class="converted-amount-words">—</span></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+  <div class="background-chart"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

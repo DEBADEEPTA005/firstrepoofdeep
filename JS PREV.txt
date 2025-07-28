@@ -74,16 +74,9 @@ function formatSymbol(code) {
 
 async function updateTopBar(base = "INR") {
   try {
-    console.log("Attempting to fetch currency data for base:", base);
     const url = `https://api.frankfurter.app/latest?from=${base}`;
     const res = await fetch(url);
-    
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
-    
     const data = await res.json();
-    console.log("Currency data received:", data);
     const newRates = data.rates;
 
     // Clear the currency bar
@@ -123,43 +116,10 @@ async function updateTopBar(base = "INR") {
 
     lastRates = newRates;
     
-    // Reinitialize scroll functionality after updating content    
+    // Reinitialize scroll functionality after updating content
     initializeScrollFunctionality();
-    
-
   } catch (e) {
-    console.error("Error loading currency rates:", e);
-    // Fallback: Display static currency data with flags
-    currencyBar.innerHTML = "";
-    displayCurrencies.forEach(code => {
-      const flag = getFlag(code);
-      const symbol = formatSymbol(code);
-      
-      if (code === base) {
-        currencyBar.innerHTML += `
-          <div class="currency-item">
-            <div class="currency-flag">${flag}</div>
-            <div class="currency-value">${code}: ${symbol}1.00</div>
-            <div class="currency-change">(Base)</div>
-          </div>`;
-      } else {
-        // Static fallback rates
-        const fallbackRates = {
-          INR: { USD: 0.012, GBP: 0.0096, CNY: 0.083, CHF: 0.011, JPY: 1.81 },
-          USD: { INR: 83.5, GBP: 0.79, CNY: 7.24, CHF: 0.88, JPY: 150.2 }
-        };
-        
-        const rate = fallbackRates[base]?.[code] || 1.0;
-        currencyBar.innerHTML += `
-          <div class="currency-item">
-            <div class="currency-flag">${flag}</div>
-            <div class="currency-value">${code}: ${symbol}${rate.toFixed(4)}</div>
-            <div class="currency-change">0.00%</div>
-          </div>`;
-      }
-    });
-    
-    initializeScrollFunctionality();
+    currencyBar.innerHTML = "<span>Error loading rates</span>";
   }
 }
 
@@ -172,85 +132,81 @@ setInterval(() => updateTopBar(baseCurrencySelector.value), 60000); // Every 60 
 
 // 🎯 SCROLLING FUNCTIONALITY - ADD THIS SECTION
 function initializeScrollFunctionality() {
-  const currencyInfo = document.querySelector('.currency-info');
+  const currencyInfo = document.getElementById('currency-bar');
   if (!currencyInfo) return;
+
+  // Prevent re-initializing
+  if (currencyInfo.dataset.scrollInitialized === "true") return;
+  currencyInfo.dataset.scrollInitialized = "true";
 
   let isDown = false;
   let startX;
   let scrollLeft;
 
-  // Remove existing event listeners to prevent duplicates
-  const newCurrencyInfo = document.querySelector('.currency-info');
-  
-
   // Mouse drag scrolling for desktop
-  newCurrencyInfo.addEventListener('mousedown', (e) => {
+  currencyInfo.addEventListener('mousedown', (e) => {
     isDown = true;
-    startX = e.pageX - newCurrencyInfo.offsetLeft;
-    scrollLeft = newCurrencyInfo.scrollLeft;
-    newCurrencyInfo.style.cursor = 'grabbing';
+    startX = e.pageX - currencyInfo.offsetLeft;
+    scrollLeft = currencyInfo.scrollLeft;
+    currencyInfo.style.cursor = 'grabbing';
   });
 
-  newCurrencyInfo.addEventListener('mouseleave', () => {
+  currencyInfo.addEventListener('mouseleave', () => {
     isDown = false;
-    newCurrencyInfo.style.cursor = 'grab';
+    currencyInfo.style.cursor = 'grab';
   });
 
-  newCurrencyInfo.addEventListener('mouseup', () => {
+  currencyInfo.addEventListener('mouseup', () => {
     isDown = false;
-    newCurrencyInfo.style.cursor = 'grab';
+    currencyInfo.style.cursor = 'grab';
   });
 
-  newCurrencyInfo.addEventListener('mousemove', (e) => {
+  currencyInfo.addEventListener('mousemove', (e) => {
     if (!isDown) return;
     e.preventDefault();
-    const x = e.pageX - newCurrencyInfo.offsetLeft;
+    const x = e.pageX - currencyInfo.offsetLeft;
     const walk = (x - startX) * 2; // Scroll speed multiplier
-    newCurrencyInfo.scrollLeft = scrollLeft - walk;
+    currencyInfo.scrollLeft = scrollLeft - walk;
   });
 
-  // Wheel scrolling for desktop
-  newCurrencyInfo.addEventListener('wheel', (e) => {
+  // Wheel scrolling
+  currencyInfo.addEventListener('wheel', (e) => {
     e.preventDefault();
-    newCurrencyInfo.scrollLeft += e.deltaY;
+    currencyInfo.scrollLeft += e.deltaY;
   });
-
-  // Create seamless loop effect
-  const items = newCurrencyInfo.querySelectorAll('.currency-item');
-  if (items.length === 0) return;
 
   // Clone items for seamless loop
+  const items = currencyInfo.querySelectorAll('.currency-item');
+  if (items.length === 0) return;
+
   items.forEach(item => {
     const clone = item.cloneNode(true);
-    newCurrencyInfo.appendChild(clone);
+    currencyInfo.appendChild(clone);
   });
 
-  // Monitor scroll position for loop
-  newCurrencyInfo.addEventListener('scroll', () => {
-    const scrollWidth = newCurrencyInfo.scrollWidth;
-    const clientWidth = newCurrencyInfo.clientWidth;
-    const scrollLeft = newCurrencyInfo.scrollLeft;
-    
-    // Calculate the width of original items
+  // Scroll looping behavior
+  currencyInfo.addEventListener('scroll', () => {
+    const scrollWidth = currencyInfo.scrollWidth;
+    const clientWidth = currencyInfo.clientWidth;
+    const scrollLeft = currencyInfo.scrollLeft;
+
     const originalWidth = (scrollWidth - clientWidth) / 2;
-    
-    // If scrolled to the end, jump to beginning
+
     if (scrollLeft >= originalWidth) {
-      newCurrencyInfo.scrollLeft = 0;
+      currencyInfo.scrollLeft = 0;
     }
-    
-    // If scrolled to the beginning (negative), jump to end
+
     if (scrollLeft <= 0) {
-      newCurrencyInfo.scrollLeft = originalWidth - 1;
+      currencyInfo.scrollLeft = originalWidth - 1;
     }
   });
 
-  // Auto-scroll functionality
+  // Auto-scroll setup
   let autoScrollInterval;
-  
+
   function startAutoScroll() {
     autoScrollInterval = setInterval(() => {
-      newCurrencyInfo.scrollLeft += 1;
+      currencyInfo.scrollLeft += 1;
     }, 30);
   }
 
@@ -258,18 +214,17 @@ function initializeScrollFunctionality() {
     clearInterval(autoScrollInterval);
   }
 
-  // Start auto-scroll and pause on hover
   startAutoScroll();
-  
-  newCurrencyInfo.addEventListener('mouseenter', stopAutoScroll);
-  newCurrencyInfo.addEventListener('mouseleave', startAutoScroll);
-  
-  // Also pause on touch for mobile
-  newCurrencyInfo.addEventListener('touchstart', stopAutoScroll);
-  newCurrencyInfo.addEventListener('touchend', () => {
-    setTimeout(startAutoScroll, 2000); // Resume after 2 seconds
+
+  // Pause auto-scroll on hover or touch
+  currencyInfo.addEventListener('mouseenter', stopAutoScroll);
+  currencyInfo.addEventListener('mouseleave', startAutoScroll);
+  currencyInfo.addEventListener('touchstart', stopAutoScroll);
+  currencyInfo.addEventListener('touchend', () => {
+    setTimeout(startAutoScroll, 2000);
   });
 }
+
 
 // Initialize scroll functionality when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
